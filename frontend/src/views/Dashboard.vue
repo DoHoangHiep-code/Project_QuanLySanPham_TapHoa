@@ -46,7 +46,7 @@
     
     <div v-else>
       <!-- Stats Cards -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         <div class="card">
           <div class="flex items-center justify-between">
             <div>
@@ -105,16 +105,6 @@
                 </p>
               </div>
             </div>
-          </div>
-        </div>
-        
-        <div class="card">
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-sm text-gray-500 mb-1">Tỷ lệ hoàn thành</p>
-              <p class="text-2xl font-bold text-gray-900">100%</p>
-            </div>
-            <div class="text-3xl">✅</div>
           </div>
         </div>
       </div>
