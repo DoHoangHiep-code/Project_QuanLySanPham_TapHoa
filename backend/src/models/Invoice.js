@@ -102,7 +102,7 @@ invoiceSchema.pre('validate', async function(next) {
 });
 
 // Các chỉ mục
-invoiceSchema.index({ invoiceNumber: 1 });
+
 invoiceSchema.index({ createdAt: -1 });
 invoiceSchema.index({ createdBy: 1 });
 invoiceSchema.index({ status: 1 });
