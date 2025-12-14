@@ -2,8 +2,8 @@
   <div>
     <div class="flex items-center justify-between mb-6">
       <h1 class="text-2xl font-bold text-gray-900">Tổng quan</h1>
-      <!-- Export Dropdown -->
-      <div class="relative" ref="exportDropdownRef">
+      <!-- Export Dropdown - Chỉ hiển thị cho admin -->
+      <div v-if="authStore.isAdmin" class="relative" ref="exportDropdownRef">
         <button
           @click="showExportDropdown = !showExportDropdown"
           class="btn btn-primary flex items-center gap-2"
@@ -156,8 +156,11 @@ import { Line } from 'vue-chartjs';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import { dashboardAPI } from '@/api/dashboard';
 import { exportAPI } from '@/api/export';
+import { useAuthStore } from '@/stores/auth';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+
+const authStore = useAuthStore();
 
 const stats = ref({
   todayStats: {},
