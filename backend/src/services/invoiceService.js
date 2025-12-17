@@ -104,5 +104,14 @@ export class InvoiceService {
   static async getBestSellingProducts(limit = 10, startDate, endDate) {
     return await InvoiceRepository.getBestSellingProducts(limit, startDate, endDate);
   }
+
+  static async updateInvoiceStatus(id, status) {
+    const invoice = await InvoiceRepository.findById(id);
+    if (!invoice) {
+      throw new AppError('Invoice not found', 404);
+    }
+
+    return await InvoiceRepository.updateStatus(id, status);
+  }
 }
 

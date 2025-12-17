@@ -16,13 +16,17 @@ export class ProductController {
 
   static async getAllProducts(req, res, next) {
     try {
+      const isLowStock =
+        req.query.isLowStock === true ||
+        req.query.isLowStock === 'true';
+
       const options = {
         page: parseInt(req.query.page) || 1,
         limit: parseInt(req.query.limit) || 10,
         sort: req.query.sort || '-createdAt',
         search: req.query.search || '',
         categoryId: req.query.categoryId,
-        isLowStock: req.query.isLowStock === 'true'
+        isLowStock
       };
 
       const result = await ProductService.getAllProducts(options);

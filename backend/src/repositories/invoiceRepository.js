@@ -59,6 +59,16 @@ export class InvoiceRepository {
     };
   }
 
+  static async updateStatus(id, status) {
+    return await Invoice.findByIdAndUpdate(
+      id,
+      { status },
+      { new: true, runValidators: true }
+    )
+      .populate('createdBy', 'username fullName')
+      .populate('items.productId', 'name barcode');
+  }
+
   static async getTodayStats() {
     const startOfDay = new Date();
     startOfDay.setHours(0, 0, 0, 0);

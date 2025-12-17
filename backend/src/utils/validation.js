@@ -90,6 +90,10 @@ export const invoiceValidation = {
     customerName: Joi.string().trim().default('Khách lẻ'),
     customerPhone: Joi.string().trim().allow(null, ''),
     notes: Joi.string().trim().allow('').default('')
+  }),
+
+  updateStatus: Joi.object({
+    status: Joi.string().valid('completed', 'cancelled', 'refunded').required()
   })
 };
 
@@ -99,7 +103,20 @@ export const queryValidation = {
     page: Joi.number().integer().min(1).default(PAGINATION.DEFAULT_PAGE),
     limit: Joi.number().integer().min(1).max(PAGINATION.MAX_LIMIT).default(PAGINATION.DEFAULT_LIMIT),
     sort: Joi.string().default('-createdAt'),
-    search: Joi.string().trim().allow('')
+    search: Joi.string().trim().allow(''),
+
+    // Common filters (used by multiple endpoints). These must be declared here because validateQuery strips unknown keys.
+    categoryId: Joi.string().trim(),
+    isLowStock: Joi.alternatives().try(Joi.boolean(), Joi.string().valid('true', 'false')),
+
+    productId: Joi.string().trim(),
+    action: Joi.string().valid(INVENTORY_ACTION.INCREASE, INVENTORY_ACTION.DECREASE),
+    reason: Joi.string().valid(...Object.values(INVENTORY_REASON)),
+
+    startDate: Joi.string().trim(),
+    endDate: Joi.string().trim(),
+
+    status: Joi.string().valid('completed', 'cancelled', 'refunded')
   })
 };
 

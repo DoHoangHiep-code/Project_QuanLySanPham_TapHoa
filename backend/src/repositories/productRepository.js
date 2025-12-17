@@ -33,9 +33,15 @@ export class ProductRepository {
       filter.categoryId = categoryId;
     }
 
-    if (isLowStock !== undefined) {
-      // Cần xử lý ở service layer do virtual field
-      // Hiện tại, chúng ta sẽ đặt một ngưỡng
+    // Lọc "sắp hết hàng" phải thực hiện ở MongoDB để phân trang/total chính xác.
+    // Điều kiện: quantity <= lowStockThreshold (mặc định 10 nếu null/undefined)
+    if (isLowStock === true) {
+      filter.$expr = {
+        $lte: [
+          '$quantity',
+          { $ifNull: ['$lowStockThreshold', 10] }
+        ]
+      };
     }
 
     const skip = (page - 1) * limit;

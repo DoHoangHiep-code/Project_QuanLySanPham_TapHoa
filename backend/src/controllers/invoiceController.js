@@ -100,5 +100,19 @@ export class InvoiceController {
       next(error);
     }
   }
+
+  static async updateInvoiceStatus(req, res, next) {
+    try {
+      const { status } = req.body;
+      const updated = await InvoiceService.updateInvoiceStatus(req.params.id, status);
+
+      res.status(200).json({
+        success: true,
+        data: updated
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
